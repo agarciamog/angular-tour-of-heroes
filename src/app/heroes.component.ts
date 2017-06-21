@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Hero } from './hero';
 import { HeroService } from './hero.service';
-import { OnInit } from '@angular/core';
+
 /*  Ng
   Iterating - *ngFor
   Conditional If - *ngIf
@@ -86,7 +86,7 @@ export class HeroesComponent implements OnInit {
   }
 
   getHeroes(): void {
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions 
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
     // (param1, param2, …, paramN) => { statements }
     this.heroService.getHeroes().then(heroes => this.heroes = heroes);
   }
