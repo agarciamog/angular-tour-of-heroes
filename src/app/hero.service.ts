@@ -7,6 +7,7 @@ import { Hero } from './hero';
 export class HeroService {
   // Might use https://api.myjson.com/bins/72div, can't write.
   private heroesUrl = 'api/heroes';
+  private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: Http) { }
 
@@ -24,8 +25,21 @@ export class HeroService {
                     .then(response => response.json().data as Hero);
   }
 
+  // Now that fetching data from in-memory server, updates have to be
+  // written back.
+  update(hero: Hero): Promise<Hero> {
+    const url = `${this.heroesUrl}/${hero.id}`;
+    return this.http
+      .put(url, JSON.stringify(hero), {headers: this.headers})
+      .toPromise()
+      .then(() => hero)
+      .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);
   }
+
+
 }
